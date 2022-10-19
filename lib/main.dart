@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,13 +26,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -43,21 +45,35 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+  Color _color = Colors.black;
+  Color _color_inverted = Colors.white;
+  int _counter = 0;
+  bool _shadow = false;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  void _changeColor() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      widget._color =
+          Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+
+      widget._color_inverted = Color.fromRGBO(255 - widget._color.red,
+          255 - widget._color.green, 255 - widget._color.blue, 1.0);
+    });
+  }
+
+  void _increment() {
+    setState(() {
+      widget._counter++;
+    });
+  }
+
+  void _toggle_shadow() {
+    setState(() {
+      widget._shadow = !widget._shadow;
     });
   }
 
@@ -78,38 +94,61 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        child: GestureDetector(
+          onTap: () {
+            _changeColor();
+            _increment();
+          },
+          onLongPress: () {
+            _toggle_shadow();
+          },
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: widget._color,
+              shape: BoxShape.rectangle,
+              boxShadow: widget._shadow
+                  ? const [
+                      BoxShadow(
+                        color: Colors.black54,
+                        blurRadius: 10.0,
+                        spreadRadius: 10.0,
+                      ),
+                    ]
+                  : null,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            child: Center(
+              child: Text(
+                widget._counter.toString(),
+                style: TextStyle(
+                    color: widget._color_inverted,
+                    fontSize: 30,
+                    shadows: widget._shadow
+                        ? const [
+                            Shadow(
+                                // bottomLeft
+                                offset: Offset(-1, -1),
+                                color: Colors.white),
+                            Shadow(
+                                // bottomRight
+                                offset: Offset(1, -1),
+                                color: Colors.white),
+                            Shadow(
+                                // topRight
+                                offset: Offset(1, 1),
+                                color: Colors.white),
+                            Shadow(
+                                // topLeft
+                                offset: Offset(-1, 1),
+                                color: Colors.white),
+                          ]
+                        : null),
+              ),
             ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
