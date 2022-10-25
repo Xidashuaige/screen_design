@@ -1,6 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:screen_design/model/product.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,139 +14,37 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: MyDemoScreen(
+        title: 'Flutter Demo Home Page',
+        product: Product(
+          name: "product",
+          backgroundAssets: "assets/background.jpg",
+        ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+class MyDemoScreen extends StatelessWidget {
   final String title;
-
-  Color _color = Colors.black;
-  Color _color_inverted = Colors.white;
-  int _counter = 0;
-  bool _shadow = false;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  void _changeColor() {
-    setState(() {
-      widget._color =
-          Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-
-      widget._color_inverted = Color.fromRGBO(255 - widget._color.red,
-          255 - widget._color.green, 255 - widget._color.blue, 1.0);
-    });
-  }
-
-  void _increment() {
-    setState(() {
-      widget._counter++;
-    });
-  }
-
-  void _toggle_shadow() {
-    setState(() {
-      widget._shadow = !widget._shadow;
-    });
-  }
+  final Product product;
+  const MyDemoScreen({
+    super.key,
+    required this.title,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: GestureDetector(
-          onTap: () {
-            _changeColor();
-            _increment();
-          },
-          onLongPress: () {
-            _toggle_shadow();
-          },
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: widget._color,
-              shape: BoxShape.rectangle,
-              boxShadow: widget._shadow
-                  ? const [
-                      BoxShadow(
-                        color: Colors.black54,
-                        blurRadius: 10.0,
-                        spreadRadius: 10.0,
-                      ),
-                    ]
-                  : null,
-            ),
-            child: Center(
-              child: Text(
-                widget._counter.toString(),
-                style: TextStyle(
-                    color: widget._color_inverted,
-                    fontSize: 30,
-                    shadows: widget._shadow
-                        ? const [
-                            Shadow(
-                                // bottomLeft
-                                offset: Offset(-1, -1),
-                                color: Colors.white),
-                            Shadow(
-                                // bottomRight
-                                offset: Offset(1, -1),
-                                color: Colors.white),
-                            Shadow(
-                                // topRight
-                                offset: Offset(1, 1),
-                                color: Colors.white),
-                            Shadow(
-                                // topLeft
-                                offset: Offset(-1, 1),
-                                color: Colors.white),
-                          ]
-                        : null),
-              ),
-            ),
-          ),
+    return Provider.value(
+      value: product,
+      child: Scaffold(
+        body: Column(
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(child: Image.asset(product.backgroundAssets)),
+          ],
         ),
       ),
     );
