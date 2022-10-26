@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:screen_design/model/product.dart';
-import 'package:provider/provider.dart';
+import 'package:screen_design/screens/my_demo_sreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,31 +20,6 @@ class MyApp extends StatelessWidget {
         product: Product(
           name: "product",
           backgroundAssets: "assets/background.jpg",
-        ),
-      ),
-    );
-  }
-}
-
-class MyDemoScreen extends StatelessWidget {
-  final String title;
-  final Product product;
-  const MyDemoScreen({
-    super.key,
-    required this.title,
-    required this.product,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Provider.value(
-      value: product,
-      child: Scaffold(
-        body: Column(
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(child: Image.asset(product.backgroundAssets)),
-          ],
         ),
       ),
     );
