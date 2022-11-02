@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/model/product.dart';
-import 'package:screen_design/widgets/header_info.dart';
+import 'package:screen_design/widgets/upper_context/header_info.dart';
 
 class MyDemoScreen extends StatelessWidget {
   final String title;
@@ -17,18 +17,41 @@ class MyDemoScreen extends StatelessWidget {
     return Provider.value(
       value: product,
       child: Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: HeaderInfo(product: product),
+        body: Stack(children: [
+          // background
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(product.backgroundAssets),
+                fit: BoxFit.cover,
+              ),
             ),
-            const Expanded(
-              flex: 5,
-              child: SizedBox(),
-            ),
-          ],
-        ),
+          ),
+
+          // context
+          Column(
+            children: [
+              // upper screen context
+              Expanded(
+                flex: 4,
+                child: HeaderInfo(product: product),
+              ),
+
+              // lower screen context
+              Expanded(
+                flex: 5,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(40),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }
