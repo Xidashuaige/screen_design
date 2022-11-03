@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/model/product.dart';
-import 'package:screen_design/widgets/upper_context/header_info.dart';
+import 'package:screen_design/widgets/background.dart';
+import 'package:screen_design/widgets/upper_context/upper_info.dart';
 
 class MyDemoScreen extends StatelessWidget {
   final String title;
@@ -14,27 +15,20 @@ class MyDemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Provider.value(
       value: product,
       child: Scaffold(
         body: Stack(children: [
           // background
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(product.backgroundAssets),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
+          Background(screenSize: screenSize, product: product),
           // context
           Column(
             children: [
               // upper screen context
               Expanded(
-                flex: 4,
-                child: HeaderInfo(product: product),
+                flex: 3,
+                child: UpperInfo(product: product),
               ),
 
               // lower screen context
