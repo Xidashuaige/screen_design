@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/model/product.dart';
 import 'package:screen_design/widgets/background.dart';
+import 'package:screen_design/widgets/lower_context/lower_info.dart';
 import 'package:screen_design/widgets/upper_context/upper_info.dart';
 
 class MyDemoScreen extends StatelessWidget {
@@ -28,19 +29,17 @@ class MyDemoScreen extends StatelessWidget {
               // upper screen context
               Expanded(
                 flex: 3,
-                child: UpperInfo(product: product),
+                child: UpperInfo(
+                  product: product,
+                ),
               ),
 
               // lower screen context
               Expanded(
-                flex: 5,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(40),
-                    ),
-                  ),
+                flex: 6,
+                child: LowerInfo(
+                  product: product,
+                  screenSize: screenSize,
                 ),
               ),
             ],

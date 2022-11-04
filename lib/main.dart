@@ -20,6 +20,11 @@ class MyApp extends StatelessWidget {
         product: Product(
           name: "product",
           backgroundAssets: "assets/background.jpg",
+          friendIcon1: "assets/icon01.png",
+          friendIcon2: "assets/icon02.png",
+          friendIcon3: "assets/icon03.png",
+          tag1: "9 sessions",
+          tag2: "100 + min of mindfulness",
         ),
       ),
     );
