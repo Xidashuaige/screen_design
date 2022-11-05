@@ -20,12 +20,14 @@ class UpperInfo extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(20),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Description
               const Description(),
+              const SizedBox(
+                height: 20,
+              ),
               // Tags
               Row(
                 children: [

@@ -7,37 +7,27 @@ class Description extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: 40,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        Text(
+          "Stress course",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 25,
+          ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text(
-              "Stress course",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            Text(
-              "Spendinf a few minutes in meditation can improve mental health",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
-            ),
-          ],
+        SizedBox(
+          height: 14,
         ),
-      ),
+        Text(
+          "Spendinf a few minutes in meditation can improve mental health",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+      ],
     );
   }
 }

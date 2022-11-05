@@ -1,4 +1,5 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:screen_design/widgets/lower_context/tecnique_info.dart';
 
 class Variant {
   String name;
@@ -21,6 +22,18 @@ class Product {
   final String friendIcon3;
   final String tag1;
   final String tag2;
+
+  // For ProgressArea
+  final int progressCount;
+  final int progressCompleted;
+
+  // For TechniquesArea
+  final TechniqueInfo techniqueInfo1;
+  final TechniqueInfo techniqueInfo2;
+
+  // For RelieveStressArea
+  final String landscapePath;
+  final String relieveTime;
   /*
   String imageAsset;
   String description;
@@ -37,12 +50,11 @@ class Product {
     required this.friendIcon3,
     required this.tag1,
     required this.tag2,
-    /*
-    required this.imageAsset,
-    required this.description,
-    required this.price,
-    this.variants = const [],
-    this.features = const [],
-    */
+    required this.progressCount,
+    required this.progressCompleted,
+    required this.techniqueInfo1,
+    required this.techniqueInfo2,
+    required this.landscapePath,
+    required this.relieveTime,
   });
 }

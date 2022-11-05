@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:screen_design/model/product.dart';
 import 'package:screen_design/widgets/lower_context/friend_info.dart';
 import 'package:screen_design/widgets/lower_context/progress_area.dart';
+import 'package:screen_design/widgets/lower_context/relieve_stress_area.dart';
+import 'package:screen_design/widgets/lower_context/techniques_area.dart';
 
 class LowerInfo extends StatelessWidget {
   const LowerInfo({
@@ -24,6 +26,7 @@ class LowerInfo extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Space border
           const SizedBox(
@@ -36,11 +39,18 @@ class LowerInfo extends StatelessWidget {
 
           ProgressArea(
             screenSize: screenSize,
-            progressCount: 8,
-            completed: 3,
+            product: product,
           ),
 
-          Text("data"),
+          TechniquesArea(
+            screenSize: screenSize,
+            product: product,
+          ),
+
+          RelieveStressArea(
+            screenSize: screenSize,
+            product: product,
+          )
         ],
       ),
     );
