@@ -19,7 +19,7 @@ class TechniquesArea extends StatelessWidget {
       children: [
         const SubTitle(text: "Techniques"),
         SizedBox(
-          width: screenSize.width - 40,
+          width: screenSize.width - 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
